@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FAFAFA">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/btnSaveChart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="#2E7D32"
+            android:text="Save"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/chartTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chart Title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/btnToggleTable"
+            android:layout_toEndOf="@+id/btnSaveChart"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btnToggleTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="#1565C0"
+            android:text="List"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/panelTable"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:background="#EEEEEE"
+        android:elevation="2dp"
+        android:padding="1dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            tools:ignore="UselessParent">
+
+            <TableLayout
+                android:id="@+id/tableData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,1,2,3">
+
+                <TableRow android:background="#E0E0E0" android:padding="10dp">
+                    <TextView android:text="Age" android:textColor="#000000" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
+                    <TextView android:text="Value" android:textColor="#000000" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
+                    <TextView android:text="Range" android:textColor="#000000" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
+                    <TextView android:text="Action" android:textColor="#000000" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
+                </TableRow>
+
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#F5F5F5"
+        android:padding="8dp"
+        android:elevation="2dp">
+
+        <EditText
+            android:id="@+id/inputAge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:gravity="center"
+            android:hint="Age"
+            android:inputType="numberDecimal"
+            android:textColor="#000000"
+            android:textColorHint="#757575"
+            android:backgroundTint="#1565C0"
+            tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/inputValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:autofillHints=""
+            android:gravity="center"
+            android:hint="Value"
+            android:inputType="numberDecimal"
+            android:textColor="#000000"
+            android:textColorHint="#757575"
+            android:backgroundTint="#1565C0"
+            tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnAddPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#1565C0"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tvPointCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Points: 0"
+            android:textSize="14sp"
+            android:textColor="#616161"
+            android:layout_marginEnd="20dp"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear All"
+            android:textColor="#C62828"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Return to Menu"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#455A64"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>
