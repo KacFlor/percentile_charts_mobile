@@ -17,8 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setupButton(R.id.btnWeightGirls, "WEIGHT_GIRLS", "Weight for Age (Girls)", "Weight (kg)");
         setupButton(R.id.btnHeightBoys, "HEIGHT_BOYS", "Height for Age (Boys)", "Height (cm)");
         setupButton(R.id.btnHeightGirls, "HEIGHT_GIRLS", "Height for Age (Girls)", "Height (cm)");
-        setupButton(R.id.btnBMI, "BMI", "BMI for Age", "BMI (kg/m^2)");
-    }
+        setupButton(R.id.btnBMI, "BMI", "BMI for Age", "BMI (kg/m^2)");}
 
     private void setupButton(int btnId, String chartType, String title, String yLabel) {
         Button btn = findViewById(btnId);
