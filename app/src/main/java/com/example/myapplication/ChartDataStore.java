@@ -5,6 +5,70 @@ import java.util.Map;
 
 public class ChartDataStore {
 
+    public static String currentLanguage = "PL";
+    private static final Map<String, String> PL_TEXTS = new HashMap<>();
+    private static final Map<String, String> LA_TEXTS = new HashMap<>();
+
+    static {
+        PL_TEXTS.put("SELECT_CHART", "Wybierz Wykres");
+        PL_TEXTS.put("BTN_WB", "Waga (Chłopcy)");
+        PL_TEXTS.put("BTN_WG", "Waga (Dziewczynki)");
+        PL_TEXTS.put("BTN_HB", "Wzrost (Chłopcy)");
+        PL_TEXTS.put("BTN_HG", "Wzrost (Dziewczynki)");
+        PL_TEXTS.put("BTN_BMI", "BMI do wieku");
+        PL_TEXTS.put("COPYRIGHT", "© 2025 Wykresy Medyczne");
+
+        PL_TEXTS.put("BTN_SAVE", "Zapisz");
+        PL_TEXTS.put("BTN_LIST", "Lista");
+        PL_TEXTS.put("BTN_HIDE", "Ukryj");
+        PL_TEXTS.put("BTN_ADD", "Dodaj");
+        PL_TEXTS.put("BTN_CLEAR", "Wyczyść");
+        PL_TEXTS.put("BTN_BACK", "Powrót do Menu");
+
+        PL_TEXTS.put("HEADER_AGE", "Wiek");
+        PL_TEXTS.put("HEADER_VAL", "Wartość");
+        PL_TEXTS.put("HEADER_RNG", "Zakres");
+        PL_TEXTS.put("HEADER_ACT", "Akcja");
+
+        PL_TEXTS.put("LABEL_POINTS", "Punkty: ");
+        PL_TEXTS.put("Y_WEIGHT", "Waga (kg)");
+        PL_TEXTS.put("Y_HEIGHT", "Wzrost (cm)");
+        PL_TEXTS.put("Y_BMI", "BMI");
+
+        LA_TEXTS.put("SELECT_CHART", "Elige Chartam");
+        LA_TEXTS.put("BTN_WB", "Pondus (Pueri)");
+        LA_TEXTS.put("BTN_WG", "Pondus (Puellae)");
+        LA_TEXTS.put("BTN_HB", "Statura (Pueri)");
+        LA_TEXTS.put("BTN_HG", "Statura (Puellae)");
+        LA_TEXTS.put("BTN_BMI", "IMC pro Aetate");
+        LA_TEXTS.put("COPYRIGHT", "© MMXXV Tabulae Medicae");
+
+        LA_TEXTS.put("BTN_SAVE", "Serva");
+        LA_TEXTS.put("BTN_LIST", "Index");
+        LA_TEXTS.put("BTN_HIDE", "Cela");
+        LA_TEXTS.put("BTN_ADD", "Adde");
+        LA_TEXTS.put("BTN_CLEAR", "Dele Omnia");
+        LA_TEXTS.put("BTN_BACK", "Reditus");
+
+        LA_TEXTS.put("HEADER_AGE", "Aetas");
+        LA_TEXTS.put("HEADER_VAL", "Valor");
+        LA_TEXTS.put("HEADER_RNG", "Ordo");
+        LA_TEXTS.put("HEADER_ACT", "Actio");
+
+        LA_TEXTS.put("LABEL_POINTS", "Puncta: ");
+        LA_TEXTS.put("Y_WEIGHT", "Pondus (kg)");
+        LA_TEXTS.put("Y_HEIGHT", "Statura (cm)");
+        LA_TEXTS.put("Y_BMI", "IMC");
+    }
+
+    public static String translate(String key) {
+        if ("LA".equals(currentLanguage)) {
+            return LA_TEXTS.get(key) != null ? LA_TEXTS.get(key) : key;
+        }
+        return PL_TEXTS.get(key) != null ? PL_TEXTS.get(key) : key;
+    }
+    // ---------------------------------
+
     public static final double[] AGE_X_AXIS = {3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18};
 
     public static class SeriesData {

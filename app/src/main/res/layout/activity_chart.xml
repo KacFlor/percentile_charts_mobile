@@ -76,10 +76,10 @@
                 android:stretchColumns="0,1,2,3">
 
                 <TableRow android:background="#E0E0E0" android:padding="10dp">
-                    <TextView android:text="Age" android:textColor="#000000" android:theme="@style/Theme.AppCompat.Light" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
-                    <TextView android:text="Value" android:textColor="#000000" android:theme="@style/Theme.AppCompat.Light" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
-                    <TextView android:text="Range" android:textColor="#000000" android:theme="@style/Theme.AppCompat.Light" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
-                    <TextView android:text="Action" android:textColor="#000000" android:theme="@style/Theme.AppCompat.Light" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
+                    <TextView android:id="@+id/tvHeaderAge" android:text="Age" android:textColor="#000000" android:theme="@style/Theme.AppCompat.Light" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
+                    <TextView android:id="@+id/tvHeaderVal" android:text="Value" android:textColor="#000000" android:theme="@style/Theme.AppCompat.Light" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
+                    <TextView android:id="@+id/tvHeaderRange" android:text="Range" android:textColor="#000000" android:theme="@style/Theme.AppCompat.Light" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
+                    <TextView android:id="@+id/tvHeaderAction" android:text="Action" android:textColor="#000000" android:theme="@style/Theme.AppCompat.Light" android:textStyle="bold" android:gravity="center" android:layout_width="0dp" android:layout_weight="1" tools:ignore="HardcodedText" />
                 </TableRow>
 
             </TableLayout>

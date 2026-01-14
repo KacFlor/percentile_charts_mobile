@@ -51,6 +51,10 @@ public class ChartActivity extends AppCompatActivity {
     private Button btnSaveChart;
     private boolean isTableVisible = false;
 
+    // Referencje do elementów UI dla tłumaczeń
+    private Button btnAdd, btnClear, btnBack;
+    private TextView headerAge, headerVal, headerRange, headerAction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,24 +65,35 @@ public class ChartActivity extends AppCompatActivity {
         inputValue = findViewById(R.id.inputValue);
         tvPointCount = findViewById(R.id.tvPointCount);
         TextView titleView = findViewById(R.id.chartTitle);
-        Button btnAdd = findViewById(R.id.btnAddPoint);
-        Button btnClear = findViewById(R.id.btnClear);
-        Button btnBack = findViewById(R.id.btnBack);
+        btnAdd = findViewById(R.id.btnAddPoint);
+        btnClear = findViewById(R.id.btnClear);
+        btnBack = findViewById(R.id.btnBack);
 
         panelTable = findViewById(R.id.panelTable);
         tableData = findViewById(R.id.tableData);
         btnToggleTable = findViewById(R.id.btnToggleTable);
         btnSaveChart = findViewById(R.id.btnSaveChart);
 
+        // Nagłówki tabeli
+        headerAge = findViewById(R.id.tvHeaderAge);
+        headerVal = findViewById(R.id.tvHeaderVal);
+        headerRange = findViewById(R.id.tvHeaderRange);
+        headerAction = findViewById(R.id.tvHeaderAction);
+
         chartType = getIntent().getStringExtra("CHART_TYPE");
         String title = getIntent().getStringExtra("CHART_TITLE");
         String yLabel = getIntent().getStringExtra("Y_LABEL");
 
         titleView.setText(title);
+        // Hint jest ustawiany dynamicznie, ale możemy go nadpisać jeśli wolisz tłumaczenie ogólne
         inputValue.setHint(yLabel);
+        inputAge.setHint(ChartDataStore.translate("HEADER_AGE"));
 
         setupChartConfig();
         loadChartData(chartType);
+
+        // Zastosuj tłumaczenia dla reszty interfejsu
+        applyTranslations();
 
         btnAdd.setOnClickListener(v -> addPoint());
         btnClear.setOnClickListener(v -> clearUserPoints());
@@ -86,6 +101,26 @@ public class ChartActivity extends AppCompatActivity {
         btnToggleTable.setOnClickListener(v -> toggleTableVisibility());
 
         btnSaveChart.setOnClickListener(v -> saveImageToGallery());
+    }
+
+    private void applyTranslations() {
+        btnSaveChart.setText(ChartDataStore.translate("BTN_SAVE"));
+        btnToggleTable.setText(ChartDataStore.translate("BTN_LIST"));
+        btnAdd.setText(ChartDataStore.translate("BTN_ADD"));
+        btnClear.setText(ChartDataStore.translate("BTN_CLEAR"));
+        btnBack.setText(ChartDataStore.translate("BTN_BACK"));
+
+        headerAge.setText(ChartDataStore.translate("HEADER_AGE"));
+        headerVal.setText(ChartDataStore.translate("HEADER_VAL"));
+        headerRange.setText(ChartDataStore.translate("HEADER_RNG"));
+        headerAction.setText(ChartDataStore.translate("HEADER_ACT"));
+
+        updatePointCountText();
+    }
+
+    private void updatePointCountText() {
+        int count = (userDataSet == null) ? 0 : userDataSet.getEntryCount();
+        tvPointCount.setText(ChartDataStore.translate("LABEL_POINTS") + count);
     }
 
     private void saveImageToGallery() {
@@ -113,7 +148,7 @@ public class ChartActivity extends AppCompatActivity {
                 if (fos != null) fos.close();
 
                 if (saved) {
-                    Toast.makeText(this, "Chart saved to Gallery!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Chart saved!", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(this, "Error saving chart", Toast.LENGTH_SHORT).show();
                 }
@@ -127,11 +162,11 @@ public class ChartActivity extends AppCompatActivity {
     private void toggleTableVisibility() {
         if (isTableVisible) {
             panelTable.setVisibility(View.GONE);
-            btnToggleTable.setText("List");
+            btnToggleTable.setText(ChartDataStore.translate("BTN_LIST"));
             isTableVisible = false;
         } else {
             panelTable.setVisibility(View.VISIBLE);
-            btnToggleTable.setText("Hide");
+            btnToggleTable.setText(ChartDataStore.translate("BTN_HIDE"));
             isTableVisible = true;
         }
     }
@@ -301,11 +336,11 @@ public class ChartActivity extends AppCompatActivity {
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
             chart.invalidate();
-            tvPointCount.setText("Points: " + userDataSet.getEntryCount());
+            updatePointCountText();
         }
 
         tableData.removeView(row);
-        Toast.makeText(this, "Point removed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
     }
 
     private void setupChartConfig() {
@@ -429,7 +464,7 @@ public class ChartActivity extends AppCompatActivity {
         String valStr = inputValue.getText().toString();
 
         if (ageStr.isEmpty() || valStr.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Empty fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -438,7 +473,7 @@ public class ChartActivity extends AppCompatActivity {
             float value = Float.parseFloat(valStr);
 
             if (age < 3 || age > 18) {
-                inputAge.setError("Age must be between 3 and 18");
+                inputAge.setError("3 - 18");
                 return;
             }
 
@@ -469,13 +504,13 @@ public class ChartActivity extends AppCompatActivity {
             }
 
             if (value < minVal || value > maxVal) {
-                inputValue.setError(valueName + " " + minVal + "-" + maxVal);
+                inputValue.setError(minVal + "-" + maxVal);
                 return;
             }
 
             for (Entry entry : userDataSet.getValues()) {
                 if (entry.getX() == age && entry.getY() == value) {
-                    Toast.makeText(this, "Point already exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Exists!", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -489,7 +524,7 @@ public class ChartActivity extends AppCompatActivity {
             chart.notifyDataSetChanged();
             chart.invalidate();
 
-            tvPointCount.setText("Points: " + userDataSet.getEntryCount());
+            updatePointCountText();
             inputAge.setText("");
             inputValue.setText("");
 
@@ -507,7 +542,7 @@ public class ChartActivity extends AppCompatActivity {
         chart.getData().notifyDataChanged();
         chart.notifyDataSetChanged();
         chart.invalidate();
-        tvPointCount.setText("Points: 0");
+        updatePointCountText();
 
         int childCount = tableData.getChildCount();
         if (childCount > 1) {
